@@ -1,4 +1,4 @@
-class Repository {
+class CommonRepository {
   constructor(model) {
     this.model = model
   }
@@ -40,4 +40,4 @@ class Repository {
   }
 }
 
-module.exports = Repository
+module.exports = CommonRepository

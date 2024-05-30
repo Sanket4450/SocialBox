@@ -20,27 +20,27 @@ const {
 
 const syncDatabase = async () => {
   try {
-    Role.hasMany(User)
-    User.belongsTo(Role)
+    // Role.hasMany(User, { foreignKey: 'role' })
+    // User.belongsTo(Role, { foreignKey: 'role', targetKey: 'id' })
 
-    User.hasMany(Post)
-    Post.belongsTo(User)
+    User.hasMany(Post, { foreignKey: 'userId' })
+    Post.belongsTo(User, { foreignKey: 'userId' })
 
-    User.hasMany(Story)
-    Story.belongsTo(User)
+    User.hasMany(Story, { foreignKey: 'userId' })
+    Story.belongsTo(User, { foreignKey: 'userId' })
 
-    User.hasMany(Comment)
-    Post.hasMany(Comment)
-    Comment.belongsTo(User)
-    Comment.belongsTo(Post)
+    User.hasMany(Comment, { foreignKey: 'userId' })
+    Post.hasMany(Comment, { foreignKey: 'postId' })
+    Comment.belongsTo(User, { foreignKey: 'userId' })
+    Comment.belongsTo(Post, { foreignKey: 'postId' })
 
-    User.hasMany(Reply)
-    Comment.hasMany(Reply)
-    Reply.belongsTo(User)
-    Reply.belongsTo(Comment)
+    User.hasMany(Reply, { foreignKey: 'userId' })
+    Comment.hasMany(Reply, { foreignKey: 'commentId' })
+    Reply.belongsTo(User, { foreignKey: 'userId' })
+    Reply.belongsTo(Comment, { foreignKey: 'commentId' })
 
-    User.hasMany(Notification)
-    Notification.belongsTo(User)
+    User.hasMany(Notification, { foreignKey: 'userId' })
+    Notification.belongsTo(User, { foreignKey: 'userId' })
 
     User.belongsToMany(User, {
       as: 'followers',
@@ -49,23 +49,83 @@ const syncDatabase = async () => {
       otherKey: 'followerId',
     })
 
-    Post.belongsToMany(Hashtag, { as: 'hashtags', through: PostHashtag })
-    Hashtag.belongsToMany(Post, { as: 'posts', through: PostHashtag })
+    Post.belongsToMany(Hashtag, {
+      as: 'hashtags',
+      through: PostHashtag,
+      foreignKey: 'postId',
+      otherKey: 'hashtagId',
+    })
+    Hashtag.belongsToMany(Post, {
+      as: 'posts',
+      through: PostHashtag,
+      foreignKey: 'hashtagId',
+      otherKey: 'postId',
+    })
 
-    User.belongsToMany(Post, { as: 'savedPosts', through: Bookmark })
-    Post.belongsToMany(User, { as: 'savedBy', through: Bookmark })
+    User.belongsToMany(Post, {
+      as: 'savedPosts',
+      through: Bookmark,
+      foreignKey: 'userId',
+      otherKey: 'postId',
+    })
+    Post.belongsToMany(User, {
+      as: 'savedBy',
+      through: Bookmark,
+      foreignKey: 'postId',
+      otherKey: 'userId',
+    })
 
-    User.belongsToMany(Post, { as: 'taggedBy', through: PostTag })
-    Post.belongsToMany(User, { as: 'taggedUsers', through: PostTag })
+    User.belongsToMany(Post, {
+      as: 'taggedBy',
+      through: PostTag,
+      foreignKey: 'userId',
+      otherKey: 'postId',
+    })
+    Post.belongsToMany(User, {
+      as: 'taggedUsers',
+      through: PostTag,
+      foreignKey: 'postId',
+      otherKey: 'userId',
+    })
 
-    User.belongsToMany(Post, { as: 'likedPosts', through: PostLike })
-    Post.belongsToMany(User, { as: 'likedBy', through: PostLike })
+    User.belongsToMany(Post, {
+      as: 'likedPosts',
+      through: PostLike,
+      foreignKey: 'userId',
+      otherKey: 'postId',
+    })
+    Post.belongsToMany(User, {
+      as: 'likedBy',
+      through: PostLike,
+      foreignKey: 'postId',
+      otherKey: 'userId',
+    })
 
-    User.belongsToMany(Story, { as: 'likedStories', through: StoryLike })
-    Story.belongsToMany(User, { as: 'likedBy', through: StoryLike })
+    User.belongsToMany(Story, {
+      as: 'likedStories',
+      through: StoryLike,
+      foreignKey: 'userId',
+      otherKey: 'storyId',
+    })
+    Story.belongsToMany(User, {
+      as: 'likedBy',
+      through: StoryLike,
+      foreignKey: 'storyId',
+      otherKey: 'userId',
+    })
 
-    User.belongsToMany(Comment, { as: 'likedComments', through: CommentLike })
-    Comment.belongsToMany(User, { as: 'likedBy', through: CommentLike })
+    User.belongsToMany(Comment, {
+      as: 'likedComments',
+      through: CommentLike,
+      foreignKey: 'userId',
+      otherKey: 'commentId',
+    })
+    Comment.belongsToMany(User, {
+      as: 'likedBy',
+      through: CommentLike,
+      foreignKey: 'commentId',
+      otherKey: 'userId',
+    })
 
     await sequelize.sync({ alter: true })
     console.log('Database synchronized successfully.')

@@ -19,4 +19,3 @@ const Hashtag = sequelize.define('Hashtag', {
 })
 
 module.exports = Hashtag
-Hashtag.bulkCreate

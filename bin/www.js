@@ -1,18 +1,9 @@
 require('dotenv').config()
 
-const express = require('express')
-const connectDB = require('../config/db')
-const syncDatabase = require('../src/repo/associations')
-const port = process.env.PORT || 4848
-const app = express()
+const app = require('../src/app')
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-;(async () => {
-  await connectDB()
-  await syncDatabase()
-})()
+const port = process.env.PORT || 4848
 
 app.listen(port, () => {
-  console.log('Server is listening on PORT:', port)
+  console.log(`Server is listening on PORT: ${port}`)
 })

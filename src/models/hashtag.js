@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize')
-const sequelize = require('../../config/db')
+const sequelize = require('../../config/sequelize')
 
 const Hashtag = sequelize.define('Hashtag', {
   id: {
@@ -19,3 +19,4 @@ const Hashtag = sequelize.define('Hashtag', {
 })
 
 module.exports = Hashtag
+Hashtag.bulkCreate

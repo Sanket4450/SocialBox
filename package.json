@@ -6,8 +6,8 @@
   "author": "Sanket Talaviya",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node bin/www.js",
+    "dev": "nodemon bin/www.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize')
-const sequelize = require('../../config/db')
+const sequelize = require('../../config/sequelize')
 
 const Bookmark = sequelize.define('Bookmark', {
   id: {

@@ -1,10 +1,6 @@
-const { Sequelize } = require('sequelize')
+const sequelize = require('./sequelize')
 
-const sequelize = new Sequelize(
-  `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/SocialBox`
-)
-
-exports.connectDB = async () => {
+const connectDB = async () => {
   try {
     await sequelize.authenticate()
     console.log('Connection has been established successfully.')
@@ -14,4 +10,4 @@ exports.connectDB = async () => {
   }
 }
 
-module.exports = sequelize
+module.exports = connectDB

@@ -1,0 +1,20 @@
+{
+  "name": "social-box",
+  "version": "1.0.0",
+  "description": "A social media application",
+  "main": "app.js",
+  "author": "Sanket Talaviya",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.2",
+    "pg": "^8.11.5",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.3"
+  }
+}
